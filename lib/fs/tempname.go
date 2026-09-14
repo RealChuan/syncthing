@@ -16,8 +16,8 @@ import (
 )
 
 const (
-	WindowsTempPrefix = "~syncthing~"
-	UnixTempPrefix    = ".syncthing."
+	WindowsTempPrefix = "~ossdrive~"
+	UnixTempPrefix    = ".ossdrive."
 )
 
 func tempPrefix() string {

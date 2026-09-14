@@ -214,16 +214,16 @@ func TestTrashcanCleanOut(t *testing.T) {
 	v := newTrashcan(cfg)
 
 	testcases := map[string]bool{
-		".stversions/file1":                     false,
-		".stversions/file2":                     true,
-		".stversions/keep1/file1":               false,
-		".stversions/keep1/file2":               false,
-		".stversions/keep2/file1":               false,
-		".stversions/keep2/file2":               true,
-		".stversions/keep3/keepsubdir/file1":    false,
-		".stversions/remove/file1":              true,
-		".stversions/remove/file2":              true,
-		".stversions/remove/removesubdir/file1": true,
+		".ossversions/file1":                     false,
+		".ossversions/file2":                     true,
+		".ossversions/keep1/file1":               false,
+		".ossversions/keep1/file2":               false,
+		".ossversions/keep2/file1":               false,
+		".ossversions/keep2/file2":               true,
+		".ossversions/keep3/keepsubdir/file1":    false,
+		".ossversions/remove/file1":              true,
+		".ossversions/remove/file2":              true,
+		".ossversions/remove/removesubdir/file1": true,
 	}
 
 	t.Run("trashcan versioner trashcan clean up", func(t *testing.T) {
@@ -253,11 +253,11 @@ func TestTrashcanCleanOut(t *testing.T) {
 			}
 		}
 
-		if _, err := fs.Lstat(".stversions/keep3"); os.IsNotExist(err) {
+		if _, err := fs.Lstat(".ossversions/keep3"); os.IsNotExist(err) {
 			t.Error("directory with non empty subdirs should not be removed")
 		}
 
-		if _, err := fs.Lstat(".stversions/remove"); !os.IsNotExist(err) {
+		if _, err := fs.Lstat(".ossversions/remove"); !os.IsNotExist(err) {
 			t.Error("empty directory should have been removed")
 		}
 	})

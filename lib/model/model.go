@@ -338,7 +338,7 @@ func (m *model) fatal(err error) {
 func (m *model) addAndStartFolderLocked(cfg config.FolderConfiguration) {
 	ignores := ignore.New(cfg.Filesystem())
 	if cfg.Type != config.FolderTypeReceiveEncrypted {
-		if err := ignores.Load(".stignore"); err != nil && !fs.IsNotExist(err) {
+		if err := ignores.Load(".ossignore"); err != nil && !fs.IsNotExist(err) {
 			slog.Error("Failed to load ignores", slogutil.Error(err))
 		}
 	}
@@ -405,7 +405,7 @@ func (m *model) addAndStartFolderLockedWithIgnores(cfg config.FolderConfiguratio
 	ffs := cfg.Filesystem()
 	_ = ffs.Hide(config.DefaultMarkerName)
 	_ = ffs.Hide(versioner.DefaultPath)
-	_ = ffs.Hide(".stignore")
+	_ = ffs.Hide(".ossignore")
 
 	var ver versioner.Versioner
 	if cfg.Versioning.Type != "" {
@@ -2192,7 +2192,7 @@ func (m *model) LoadIgnores(folder string) ([]string, []string, error) {
 		ignores = ignore.New(cfg.Filesystem())
 	}
 
-	err := ignores.Load(".stignore")
+	err := ignores.Load(".ossignore")
 	if fs.IsNotExist(err) {
 		// Having no ignores is not an error.
 		return nil, nil, nil
@@ -2244,8 +2244,8 @@ func (m *model) setIgnores(cfg config.FolderConfiguration, content []string) err
 		return err
 	}
 
-	if err := ignore.WriteIgnores(cfg.Filesystem(), ".stignore", content); err != nil {
-		slog.Error("Failed to save .stignore", slogutil.Error(err))
+	if err := ignore.WriteIgnores(cfg.Filesystem(), ".ossignore", content); err != nil {
+		slog.Error("Failed to save .ossignore", slogutil.Error(err))
 		return err
 	}
 

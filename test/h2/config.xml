@@ -24,7 +24,7 @@
         <maxConflicts>-1</maxConflicts>
         <disableSparseFiles>false</disableSparseFiles>
         <paused>false</paused>
-        <markerName>.stfolder</markerName>
+        <markerName>.ossfolder</markerName>
         <copyOwnershipFromParent>false</copyOwnershipFromParent>
         <modTimeWindowS>0</modTimeWindowS>
         <maxConcurrentWrites>8</maxConcurrentWrites>
@@ -150,7 +150,7 @@
             <maxConflicts>10</maxConflicts>
             <disableSparseFiles>false</disableSparseFiles>
             <paused>false</paused>
-            <markerName>.stfolder</markerName>
+            <markerName>.ossfolder</markerName>
             <copyOwnershipFromParent>false</copyOwnershipFromParent>
             <modTimeWindowS>0</modTimeWindowS>
             <maxConcurrentWrites>16</maxConcurrentWrites>

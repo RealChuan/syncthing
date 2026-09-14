@@ -145,7 +145,7 @@ may no longer correspond to the defaults.
         <maxConflicts>\-1</maxConflicts>
         <disableSparseFiles>false</disableSparseFiles>
         <paused>false</paused>
-        <markerName>.stfolder</markerName>
+        <markerName>.ossfolder</markerName>
         <copyOwnershipFromParent>false</copyOwnershipFromParent>
         <modTimeWindowS>0</modTimeWindowS>
         <maxConcurrentWrites>16</maxConcurrentWrites>
@@ -246,7 +246,7 @@ may no longer correspond to the defaults.
             <maxConflicts>10</maxConflicts>
             <disableSparseFiles>false</disableSparseFiles>
             <paused>false</paused>
-            <markerName>.stfolder</markerName>
+            <markerName>.ossfolder</markerName>
             <copyOwnershipFromParent>false</copyOwnershipFromParent>
             <modTimeWindowS>0</modTimeWindowS>
             <maxConcurrentWrites>16</maxConcurrentWrites>
@@ -336,7 +336,7 @@ GUI.
     <maxConflicts>\-1</maxConflicts>
     <disableSparseFiles>false</disableSparseFiles>
     <paused>false</paused>
-    <markerName>.stfolder</markerName>
+    <markerName>.ossfolder</markerName>
     <copyOwnershipFromParent>false</copyOwnershipFromParent>
     <modTimeWindowS>0</modTimeWindowS>
     <maxConcurrentWrites>16</maxConcurrentWrites>
@@ -595,7 +595,7 @@ True if this folder is (temporarily) suspended.
 .B markerName
 Name of a directory or file in the folder root to be used as a marker \- see
 \fI\%marker FAQ\fP for its purpose.
-A marker directory is only created by Syncthing for the default \fB\&.stfolder\fP, not otherwise.
+A marker directory is only created by Syncthing for the default \fB\&.ossfolder\fP, not otherwise.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -1593,7 +1593,7 @@ are set, \fI\%\-\-auditfile\fP takes priority.
         <maxConflicts>10</maxConflicts>
         <disableSparseFiles>false</disableSparseFiles>
         <paused>false</paused>
-        <markerName>.stfolder</markerName>
+        <markerName>.ossfolder</markerName>
         <copyOwnershipFromParent>false</copyOwnershipFromParent>
         <modTimeWindowS>0</modTimeWindowS>
         <maxConcurrentWrites>16</maxConcurrentWrites>
@@ -1658,7 +1658,7 @@ Added in version 1.19.0.
 
 .sp
 Template for the \fI\%ignore patterns\fP applied to new
-folders.  These are copied to the \fB\&.stignore\fP file when a folder is
+folders.  These are copied to the \fB\&.ossignore\fP file when a folder is
 automatically accepted from a remote device.  The GUI uses them to pre\-fill
 the respective field when adding a new folder as well.  In XML, each pattern
 line is represented as by a \fB<line>\fP element.

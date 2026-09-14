@@ -1574,7 +1574,7 @@ func TestIgnores(t *testing.T) {
 
 	// Assure a clean start state
 	must(t, ffs.MkdirAll(config.DefaultMarkerName, 0o644))
-	writeFile(t, ffs, ".stignore", []byte(".*\nquux\n"))
+	writeFile(t, ffs, ".ossignore", []byte(".*\nquux\n"))
 
 	folderIgnoresAlwaysReload(t, m, defaultFolderConfig)
 
@@ -1624,11 +1624,11 @@ func TestIgnores(t *testing.T) {
 
 	changeIgnores(t, m, expected)
 
-	// Make sure no .stignore file is considered valid
+	// Make sure no .ossignore file is considered valid
 	defer func() {
-		must(t, ffs.Rename(".stignore.bak", ".stignore"))
+		must(t, ffs.Rename(".ossignore.bak", ".ossignore"))
 	}()
-	must(t, ffs.Rename(".stignore", ".stignore.bak"))
+	must(t, ffs.Rename(".ossignore", ".ossignore.bak"))
 	changeIgnores(t, m, []string{})
 }
 
@@ -1642,22 +1642,22 @@ func TestEmptyIgnores(t *testing.T) {
 	if err := m.SetIgnores("default", []string{}); err != nil {
 		t.Error(err)
 	}
-	if _, err := ffs.Stat(".stignore"); err == nil {
-		t.Error(".stignore was created despite being empty")
+	if _, err := ffs.Stat(".ossignore"); err == nil {
+		t.Error(".ossignore was created despite being empty")
 	}
 
 	if err := m.SetIgnores("default", []string{".*", "quux"}); err != nil {
 		t.Error(err)
 	}
-	if _, err := ffs.Stat(".stignore"); os.IsNotExist(err) {
-		t.Error(".stignore does not exist")
+	if _, err := ffs.Stat(".ossignore"); os.IsNotExist(err) {
+		t.Error(".ossignore does not exist")
 	}
 
 	if err := m.SetIgnores("default", []string{}); err != nil {
 		t.Error(err)
 	}
-	if _, err := ffs.Stat(".stignore"); err == nil {
-		t.Error(".stignore should have been deleted because it is empty")
+	if _, err := ffs.Stat(".ossignore"); err == nil {
+		t.Error(".ossignore should have been deleted because it is empty")
 	}
 }
 
@@ -2617,15 +2617,15 @@ func TestVersionRestore(t *testing.T) {
 
 	for _, file := range []string{
 		// Versions directory
-		".stversions/file~20171210-040404.txt",  // will be restored
-		".stversions/existing~20171210-040404",  // exists, should expect to be archived.
-		".stversions/something~20171210-040404", // will become directory, hence error
-		".stversions/dir/file~20171210-040404.txt",
-		".stversions/dir/file~20171210-040405.txt",
-		".stversions/dir/file~20171210-040406.txt",
-		".stversions/very/very/deep/one~20171210-040406.txt", // lives deep down, no directory exists.
-		".stversions/dir/existing~20171210-040406.txt",       // exists, should expect to be archived.
-		".stversions/dir/cat",                                // untagged which was used by trashcan, supported
+		".ossversions/file~20171210-040404.txt",  // will be restored
+		".ossversions/existing~20171210-040404",  // exists, should expect to be archived.
+		".ossversions/something~20171210-040404", // will become directory, hence error
+		".ossversions/dir/file~20171210-040404.txt",
+		".ossversions/dir/file~20171210-040405.txt",
+		".ossversions/dir/file~20171210-040406.txt",
+		".ossversions/very/very/deep/one~20171210-040406.txt", // lives deep down, no directory exists.
+		".ossversions/dir/existing~20171210-040406.txt",       // exists, should expect to be archived.
+		".ossversions/dir/cat",                                // untagged which was used by trashcan, supported
 
 		// "file.txt" will be restored
 		"existing",
@@ -2831,8 +2831,8 @@ func TestIssue4094(t *testing.T) {
 		t.Fatalf("failed setting ignores: %v", err)
 	}
 
-	if _, err := fcfg.Filesystem().Lstat(".stignore"); err != nil {
-		t.Fatalf("failed stating .stignore: %v", err)
+	if _, err := fcfg.Filesystem().Lstat(".ossignore"); err != nil {
+		t.Fatalf("failed stating .ossignore: %v", err)
 	}
 }
 

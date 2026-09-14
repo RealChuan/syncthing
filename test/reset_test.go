@@ -56,7 +56,7 @@ func TestReset(t *testing.T) {
 	if err := os.Mkdir("s1", 0o755); err != nil {
 		t.Fatal(err)
 	}
-	if fd, err := os.Create("s1/.stfolder"); err != nil {
+	if fd, err := os.Create("s1/.ossfolder"); err != nil {
 		t.Fatal(err)
 	} else {
 		fd.Close()

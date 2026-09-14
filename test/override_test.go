@@ -243,7 +243,7 @@ func TestOverrideIgnores(t *testing.T) {
 
 	log.Println("Ignoring testfile.txt on sendOnly...")
 
-	fd, err = os.Create("s1/.stignore")
+	fd, err = os.Create("s1/.ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}

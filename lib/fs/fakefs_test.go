@@ -253,15 +253,15 @@ func createTestDir(t *testing.T) (string, bool) {
 
 	testDir := t.TempDir()
 
-	if fd, err := os.Create(filepath.Join(testDir, ".stfolder")); err != nil {
-		t.Fatalf("could not create .stfolder: %s", err)
+	if fd, err := os.Create(filepath.Join(testDir, ".ossfolder")); err != nil {
+		t.Fatalf("could not create .ossfolder: %s", err)
 	} else {
 		fd.Close()
 	}
 
 	var sensitive bool
 
-	if f, err := os.Open(filepath.Join(testDir, ".STfolder")); err != nil {
+	if f, err := os.Open(filepath.Join(testDir, ".ossfolder")); err != nil {
 		sensitive = true
 	} else {
 		defer f.Close()
@@ -367,7 +367,7 @@ func assertDir(t *testing.T, fs Filesystem, directory string, filenames []string
 	}
 
 	if path.Clean(directory) == "/" {
-		filenames = append(filenames, ".stfolder")
+		filenames = append(filenames, ".ossfolder")
 	}
 	slices.Sort(filenames)
 	slices.Sort(got)
@@ -916,7 +916,7 @@ func TestReadWriteContent(t *testing.T) {
 func cleanup(fs Filesystem) error {
 	filenames, _ := fs.DirNames("/")
 	for _, filename := range filenames {
-		if filename != ".stfolder" {
+		if filename != ".ossfolder" {
 			if err := fs.RemoveAll(filename); err != nil {
 				return err
 			}

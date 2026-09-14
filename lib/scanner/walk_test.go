@@ -83,7 +83,7 @@ func newTestFs(opts ...fs.Option) fs.Filesystem {
 	fs.WriteFile(tfs, "dir3/dfile", []byte("quux\n"), 0o644)
 	fs.WriteFile(tfs, "afile", []byte("foo\n"), 0o644)
 	fs.WriteFile(tfs, "bfile", []byte("bar\n"), 0o644)
-	fs.WriteFile(tfs, ".stignore", []byte("#include excludes\n\nbfile\ndir1/cfile\n/dir2/dir21\n"), 0o644)
+	fs.WriteFile(tfs, ".ossignore", []byte("#include excludes\n\nbfile\ndir1/cfile\n/dir2/dir21\n"), 0o644)
 	fs.WriteFile(tfs, "excludes", []byte("dir2/dfile\n#include further-excludes\n"), 0o644)
 	fs.WriteFile(tfs, "further-excludes", []byte("dir3\n"), 0o644)
 	return tfs
@@ -92,7 +92,7 @@ func newTestFs(opts ...fs.Option) fs.Filesystem {
 func TestWalkSub(t *testing.T) {
 	testFs := newTestFs()
 	ignores := ignore.New(testFs)
-	err := ignores.Load(".stignore")
+	err := ignores.Load(".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -127,7 +127,7 @@ func TestWalkSub(t *testing.T) {
 func TestWalk(t *testing.T) {
 	testFs := newTestFs()
 	ignores := ignore.New(testFs)
-	err := ignores.Load(".stignore")
+	err := ignores.Load(".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -750,7 +750,7 @@ func TestRecurseInclude(t *testing.T) {
 	`
 	testFs := newTestFs()
 	ignores := ignore.New(testFs)
-	if err := ignores.Parse(bytes.NewBufferString(stignore), ".stignore"); err != nil {
+	if err := ignores.Parse(bytes.NewBufferString(stignore), ".ossignore"); err != nil {
 		t.Fatal(err)
 	}
 
@@ -866,7 +866,7 @@ func TestSkipIgnoredDirs(t *testing.T) {
 	!/f*
 	*
 	`
-	if err := pats.Parse(bytes.NewBufferString(stignore), ".stignore"); err != nil {
+	if err := pats.Parse(bytes.NewBufferString(stignore), ".ossignore"); err != nil {
 		t.Fatal(err)
 	}
 	if m := pats.Match("whatever"); !m.CanSkipDir() {
@@ -898,7 +898,7 @@ func TestIncludedSubdir(t *testing.T) {
 	!/foo/bar
 	*
 	`
-	if err := pats.Parse(bytes.NewBufferString(stignore), ".stignore"); err != nil {
+	if err := pats.Parse(bytes.NewBufferString(stignore), ".ossignore"); err != nil {
 		t.Fatal(err)
 	}
 

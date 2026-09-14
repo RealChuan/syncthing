@@ -35,12 +35,12 @@ func TestRecvOnlyRevertDeletes(t *testing.T) {
 
 	// Create some test data
 
-	for _, dir := range []string{".stfolder", "ignDir", "unknownDir"} {
+	for _, dir := range []string{".ossfolder", "ignDir", "unknownDir"} {
 		must(t, ffs.MkdirAll(dir, 0o755))
 	}
 	writeFilePerm(t, ffs, "ignDir/ignFile", []byte("hello\n"), 0o644)
 	writeFilePerm(t, ffs, "unknownDir/unknownFile", []byte("hello\n"), 0o644)
-	writeFilePerm(t, ffs, ".stignore", []byte("ignDir\n"), 0o644)
+	writeFilePerm(t, ffs, ".ossignore", []byte("ignDir\n"), 0o644)
 
 	knownFiles := setupKnownFiles(t, ffs, []byte("hello\n"))
 
@@ -119,7 +119,7 @@ func TestRecvOnlyRevertNeeds(t *testing.T) {
 
 	// Create some test data
 
-	must(t, ffs.MkdirAll(".stfolder", 0o755))
+	must(t, ffs.MkdirAll(".ossfolder", 0o755))
 	oldData := []byte("hello\n")
 	knownFiles := setupKnownFiles(t, ffs, oldData)
 
@@ -210,7 +210,7 @@ func TestRecvOnlyUndoChanges(t *testing.T) {
 
 	// Create some test data
 
-	must(t, ffs.MkdirAll(".stfolder", 0o755))
+	must(t, ffs.MkdirAll(".ossfolder", 0o755))
 	oldData := []byte("hello\n")
 	knownFiles := setupKnownFiles(t, ffs, oldData)
 
@@ -280,7 +280,7 @@ func TestRecvOnlyDeletedRemoteDrop(t *testing.T) {
 
 	// Create some test data
 
-	must(t, ffs.MkdirAll(".stfolder", 0o755))
+	must(t, ffs.MkdirAll(".ossfolder", 0o755))
 	oldData := []byte("hello\n")
 	knownFiles := setupKnownFiles(t, ffs, oldData)
 
@@ -345,7 +345,7 @@ func TestRecvOnlyRemoteUndoChanges(t *testing.T) {
 
 	// Create some test data
 
-	must(t, ffs.MkdirAll(".stfolder", 0o755))
+	must(t, ffs.MkdirAll(".ossfolder", 0o755))
 	oldData := []byte("hello\n")
 	knownFiles := setupKnownFiles(t, ffs, oldData)
 
@@ -437,7 +437,7 @@ func TestRecvOnlyRevertOwnID(t *testing.T) {
 
 	// Create some test data
 
-	must(t, ffs.MkdirAll(".stfolder", 0o755))
+	must(t, ffs.MkdirAll(".ossfolder", 0o755))
 	data := []byte("hello\n")
 	name := "foo"
 	writeFilePerm(t, ffs, name, data, 0o644)
@@ -498,7 +498,7 @@ func TestRecvOnlyLocalChangeDoesNotCauseConflict(t *testing.T) {
 
 	// Create some test data
 
-	must(t, ffs.MkdirAll(".stfolder", 0o755))
+	must(t, ffs.MkdirAll(".ossfolder", 0o755))
 	oldData := []byte("hello\n")
 	knownFiles := setupKnownFiles(t, ffs, oldData)
 

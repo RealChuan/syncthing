@@ -122,7 +122,7 @@ type ChangeDetector interface {
 
 type Matcher struct {
 	fs             fs.Filesystem
-	lines          []string  // exact lines read from .stignore
+	lines          []string  // exact lines read from .ossignore
 	patterns       []Pattern // patterns including those from included files
 	curHash        string
 	changeDetector ChangeDetector
@@ -268,7 +268,7 @@ func (m *Matcher) Match(file string) ignoreresult.R {
 	return ignoreresult.NotIgnored
 }
 
-// Lines return a list of the unprocessed lines in .stignore at last load
+// Lines return a list of the unprocessed lines in .ossignore at last load
 func (m *Matcher) Lines() []string {
 	m.mut.Lock()
 	defer m.mut.Unlock()
@@ -339,7 +339,7 @@ func loadParseIncludeFile(filesystem fs.Filesystem, file string, cd ChangeDetect
 	fd, info, err := loadIgnoreFile(filesystem, file)
 	if err != nil {
 		// isNotExist is considered "ok" in a sense of that a folder doesn't have to act
-		// upon it. This is because it is allowed for .stignore to not exist. However,
+		// upon it. This is because it is allowed for .ossignore to not exist. However,
 		// included ignore files are not allowed to be missing and these errors should be
 		// acted upon on. So we don't preserve the error chain here and manually set an
 		// error instead, if the file is missing.
@@ -546,7 +546,7 @@ func parseIgnoreFile(fs fs.Filesystem, fd io.Reader, currentFile string, cd Chan
 			} else {
 				// Wrap the error, as if the include does not exist, we get a
 				// IsNotExists(err) == true error, which we use to check
-				// existence of the .stignore file, and just end up assuming
+				// existence of the .ossignore file, and just end up assuming
 				// there is none, rather than a broken include.
 				err = parseError(fmt.Errorf("failed to load include file %s: %w", includeFile, err))
 			}

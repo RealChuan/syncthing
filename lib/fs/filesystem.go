@@ -294,9 +294,9 @@ func NewFilesystem(fsType FilesystemType, uri string, opts ...Option) Filesystem
 	return fs
 }
 
-// fs cannot import config or versioner, so we hard code .stfolder
-// (config.DefaultMarkerName) and .stversions (versioner.DefaultPath)
-var internals = []string{".stfolder", ".stignore", ".stversions"}
+// fs cannot import config or versioner, so we hard code .ossfolder
+// (config.DefaultMarkerName) and .ossversions (versioner.DefaultPath)
+var internals = []string{".ossfolder", ".ossignore", ".ossversions"}
 
 // IsInternal returns true if the file, as a path relative to the folder
 // root, represents an internal file that should always be ignored. The file

@@ -16,7 +16,7 @@ import (
 
 var (
 	ErrClosed  = errors.New("write to closed writer")
-	TempPrefix = ".syncthing.tmp."
+	TempPrefix = ".ossdrive.tmp."
 )
 
 // An AtomicWriter is an *os.File that writes to a temporary file in the same

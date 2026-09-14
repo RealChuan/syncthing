@@ -66,7 +66,7 @@ func TestIgnores(t *testing.T) {
 
 	// Add some of them to an ignore file
 
-	err = os.WriteFile("s1/.stignore",
+	err = os.WriteFile("s1/.ossignore",
 		[]byte("f1*\nf2\nd1*\nd2\ns1*\ns2\n(?i)*.txt"), // [fds][34] only non-ignored items
 		0o644)
 	if err != nil {
@@ -91,7 +91,7 @@ func TestIgnores(t *testing.T) {
 	// Change the pattern to include some of the files and dirs previously ignored
 
 	time.Sleep(1100 * time.Millisecond)
-	err = os.WriteFile("s1/.stignore", []byte("f2\nd2\ns2\n"), 0o644)
+	err = os.WriteFile("s1/.ossignore", []byte("f2\nd2\ns2\n"), 0o644)
 
 	// Rescan and verify that we see them
 

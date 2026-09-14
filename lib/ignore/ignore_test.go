@@ -26,7 +26,7 @@ import (
 const escapePrefixEqual = escapePrefix + "="
 
 var testFiles = map[string]string{
-	".stignore": `#include excludes
+	".ossignore": `#include excludes
 bfile
 dir1/cfile
 **/efile
@@ -53,7 +53,7 @@ func TestIgnore(t *testing.T) {
 	testFs := newTestFS()
 
 	pats := New(testFs)
-	err := pats.Load(".stignore")
+	err := pats.Load(".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -105,7 +105,7 @@ func TestExcludes(t *testing.T) {
 	!ign2
 	`
 	pats := New(testFs)
-	err := pats.Parse(bytes.NewBufferString(stignore), ".stignore")
+	err := pats.Parse(bytes.NewBufferString(stignore), ".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -152,7 +152,7 @@ func TestFlagOrder(t *testing.T) {
 	(?d)(?d)!ign10
 	`
 	pats := New(testFs)
-	err := pats.Parse(bytes.NewBufferString(stignore), ".stignore")
+	err := pats.Parse(bytes.NewBufferString(stignore), ".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -189,7 +189,7 @@ func TestDeletables(t *testing.T) {
 	(?i)ign8
 	`
 	pats := New(testFs)
-	err := pats.Parse(bytes.NewBufferString(stignore), ".stignore")
+	err := pats.Parse(bytes.NewBufferString(stignore), ".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -225,11 +225,11 @@ func TestBadPatterns(t *testing.T) {
 		"/[",
 		"**/[",
 		"#include nonexistent",
-		"#include .stignore",
+		"#include .ossignore",
 	}
 
 	for _, pat := range badPatterns {
-		err := New(testFs).Parse(bytes.NewBufferString(pat), ".stignore")
+		err := New(testFs).Parse(bytes.NewBufferString(pat), ".ossignore")
 		if err == nil {
 			t.Errorf("No error for pattern %q", pat)
 		}
@@ -248,7 +248,7 @@ func TestCaseSensitivity(t *testing.T) {
 	testFs := newTestFS()
 
 	ign := New(testFs)
-	err := ign.Parse(bytes.NewBufferString("test"), ".stignore")
+	err := ign.Parse(bytes.NewBufferString("test"), ".ossignore")
 	if err != nil {
 		t.Error(err)
 	}
@@ -290,7 +290,7 @@ func TestCommentsAndBlankLines(t *testing.T) {
 
 	`
 	pats := New(testFs)
-	err := pats.Parse(bytes.NewBufferString(stignore), ".stignore")
+	err := pats.Parse(bytes.NewBufferString(stignore), ".ossignore")
 	if err != nil {
 		t.Error(err)
 	}
@@ -303,7 +303,7 @@ func TestNegatedGlobstarOnly(t *testing.T) {
 	testFs := newTestFS()
 
 	pats := New(testFs)
-	if err := pats.Parse(bytes.NewBufferString("!**/\n"), ".stignore"); err != nil {
+	if err := pats.Parse(bytes.NewBufferString("!**/\n"), ".ossignore"); err != nil {
 		t.Fatal(err)
 	}
 	// Must not panic on an empty pattern component.
@@ -331,7 +331,7 @@ flamingo
 *.crow
 	`
 	pats := New(testFs)
-	err := pats.Parse(bytes.NewBufferString(stignore), ".stignore")
+	err := pats.Parse(bytes.NewBufferString(stignore), ".ossignore")
 	if err != nil {
 		b.Error(err)
 	}
@@ -418,12 +418,12 @@ func TestHash(t *testing.T) {
 	testFs := newTestFS()
 
 	p1 := New(testFs)
-	err := p1.Load(".stignore")
+	err := p1.Load(".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	// Same list of patterns as .stignore, after expansion
+	// Same list of patterns as .ossignore, after expansion
 	stignore := `
 	dir2/dfile
 	dir3
@@ -434,7 +434,7 @@ func TestHash(t *testing.T) {
 	lost+found
 	`
 	p2 := New(testFs)
-	err = p2.Parse(bytes.NewBufferString(stignore), ".stignore")
+	err = p2.Parse(bytes.NewBufferString(stignore), ".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -449,7 +449,7 @@ func TestHash(t *testing.T) {
 	lost+found
 	`
 	p3 := New(testFs)
-	err = p3.Parse(bytes.NewBufferString(stignore), ".stignore")
+	err = p3.Parse(bytes.NewBufferString(stignore), ".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -476,7 +476,7 @@ func TestHashOfEmpty(t *testing.T) {
 
 	p1 := New(testFs)
 
-	err := p1.Load(".stignore")
+	err := p1.Load(".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -518,7 +518,7 @@ func TestWindowsPatterns(t *testing.T) {
 	`
 	pats := New(testFs)
 
-	err := pats.Parse(bytes.NewBufferString(stignore), ".stignore")
+	err := pats.Parse(bytes.NewBufferString(stignore), ".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -546,7 +546,7 @@ func TestAutomaticCaseInsensitivity(t *testing.T) {
 	`
 	pats := New(testFs)
 
-	err := pats.Parse(bytes.NewBufferString(stignore), ".stignore")
+	err := pats.Parse(bytes.NewBufferString(stignore), ".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -568,7 +568,7 @@ func TestCommas(t *testing.T) {
 	`
 	pats := New(testFs)
 
-	err := pats.Parse(bytes.NewBufferString(stignore), ".stignore")
+	err := pats.Parse(bytes.NewBufferString(stignore), ".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -602,7 +602,7 @@ func TestIssue3164(t *testing.T) {
 	`
 	pats := New(testFs)
 
-	err := pats.Parse(bytes.NewBufferString(stignore), ".stignore")
+	err := pats.Parse(bytes.NewBufferString(stignore), ".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -641,7 +641,7 @@ func TestIssue3174(t *testing.T) {
 	`
 	pats := New(testFs)
 
-	err := pats.Parse(bytes.NewBufferString(stignore), ".stignore")
+	err := pats.Parse(bytes.NewBufferString(stignore), ".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -662,7 +662,7 @@ func TestIssue3639(t *testing.T) {
 	`
 	pats := New(testFs)
 
-	err := pats.Parse(bytes.NewBufferString(stignore), ".stignore")
+	err := pats.Parse(bytes.NewBufferString(stignore), ".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -698,7 +698,7 @@ func TestIssue3674(t *testing.T) {
 
 	pats := New(testFs)
 
-	err := pats.Parse(bytes.NewBufferString(stignore), ".stignore")
+	err := pats.Parse(bytes.NewBufferString(stignore), ".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -733,7 +733,7 @@ func TestGobwasGlobIssue18(t *testing.T) {
 
 	pats := New(testFs)
 
-	err := pats.Parse(bytes.NewBufferString(stignore), ".stignore")
+	err := pats.Parse(bytes.NewBufferString(stignore), ".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -765,7 +765,7 @@ func TestRoot(t *testing.T) {
 
 	pats := New(testFs)
 
-	err := pats.Parse(bytes.NewBufferString(stignore), ".stignore")
+	err := pats.Parse(bytes.NewBufferString(stignore), ".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -791,7 +791,7 @@ func TestLines(t *testing.T) {
 
 	pats := New(testFs)
 
-	err := pats.Parse(bytes.NewBufferString(stignore), ".stignore")
+	err := pats.Parse(bytes.NewBufferString(stignore), ".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -832,13 +832,13 @@ func TestDuplicateLines(t *testing.T) {
 
 	pats := New(testFs)
 
-	err := pats.Parse(bytes.NewBufferString(stignore), ".stignore")
+	err := pats.Parse(bytes.NewBufferString(stignore), ".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
 	patsLen := len(pats.patterns)
 
-	err = pats.Parse(bytes.NewBufferString(stignoreFiltered), ".stignore")
+	err = pats.Parse(bytes.NewBufferString(stignoreFiltered), ".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -865,7 +865,7 @@ func TestIssue4680(t *testing.T) {
 
 	pats := New(testFs)
 
-	err := pats.Parse(bytes.NewBufferString(stignore), ".stignore")
+	err := pats.Parse(bytes.NewBufferString(stignore), ".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -885,7 +885,7 @@ func TestIssue4689(t *testing.T) {
 
 	pats := New(testFs)
 
-	err := pats.Parse(bytes.NewBufferString(stignore), ".stignore")
+	err := pats.Parse(bytes.NewBufferString(stignore), ".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -896,7 +896,7 @@ func TestIssue4689(t *testing.T) {
 
 	stignore = `// new`
 
-	err = pats.Parse(bytes.NewBufferString(stignore), ".stignore")
+	err = pats.Parse(bytes.NewBufferString(stignore), ".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -916,7 +916,7 @@ func TestIssue4901(t *testing.T) {
 
 	pats := New(testFs)
 
-	fd, err := pats.fs.Create(".stignore")
+	fd, err := pats.fs.Create(".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -926,7 +926,7 @@ func TestIssue4901(t *testing.T) {
 
 	// Cache does not suddenly make the load succeed.
 	for range 2 {
-		err := pats.Load(".stignore")
+		err := pats.Load(".ossignore")
 		if err == nil {
 			t.Fatal("expected an error")
 		}
@@ -946,7 +946,7 @@ func TestIssue4901(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	err = pats.Load(".stignore")
+	err = pats.Load(".ossignore")
 	if err != nil {
 		t.Fatalf("unexpected error: %s", err.Error())
 	}
@@ -963,7 +963,7 @@ func TestIssue5009(t *testing.T) {
 	ign1
 	i*2
 	`
-	if err := pats.Parse(bytes.NewBufferString(stignore), ".stignore"); err != nil {
+	if err := pats.Parse(bytes.NewBufferString(stignore), ".ossignore"); err != nil {
 		t.Fatal(err)
 	}
 	if m := pats.Match("ign2"); !m.CanSkipDir() {
@@ -978,7 +978,7 @@ func TestIssue5009(t *testing.T) {
 	!ign2
 	`
 
-	if err := pats.Parse(bytes.NewBufferString(stignore), ".stignore"); err != nil {
+	if err := pats.Parse(bytes.NewBufferString(stignore), ".ossignore"); err != nil {
 		t.Fatal(err)
 	}
 
@@ -997,7 +997,7 @@ func TestSpecialChars(t *testing.T) {
 (?i)/$Recycle.bin
 (?i)/$RECYCLE.BIN
 (?i)/System Volume Information`
-	if err := pats.Parse(bytes.NewBufferString(stignore), ".stignore"); err != nil {
+	if err := pats.Parse(bytes.NewBufferString(stignore), ".ossignore"); err != nil {
 		t.Fatal(err)
 	}
 
@@ -1023,7 +1023,7 @@ func TestIntlWildcards(t *testing.T) {
 200?春
 300[0-9]春
 400[0-9]?`
-	if err := pats.Parse(bytes.NewBufferString(stignore), ".stignore"); err != nil {
+	if err := pats.Parse(bytes.NewBufferString(stignore), ".ossignore"); err != nil {
 		t.Fatal(err)
 	}
 
@@ -1057,7 +1057,7 @@ func TestPartialIncludeLine(t *testing.T) {
 	}
 
 	for _, tc := range cases {
-		err := pats.Parse(bytes.NewBufferString(tc), ".stignore")
+		err := pats.Parse(bytes.NewBufferString(tc), ".ossignore")
 		if err == nil {
 			t.Fatal("should error out")
 		}
@@ -1113,7 +1113,7 @@ func TestSkipIgnoredDirs(t *testing.T) {
 	!/bar
 	*
 	`
-	if err := pats.Parse(bytes.NewBufferString(stignore), ".stignore"); err != nil {
+	if err := pats.Parse(bytes.NewBufferString(stignore), ".ossignore"); err != nil {
 		t.Fatal(err)
 	}
 	if m := pats.Match("whatever"); !m.CanSkipDir() {
@@ -1124,7 +1124,7 @@ func TestSkipIgnoredDirs(t *testing.T) {
 	!/foo/ign*
 	*
 	`
-	if err := pats.Parse(bytes.NewBufferString(stignore), ".stignore"); err != nil {
+	if err := pats.Parse(bytes.NewBufferString(stignore), ".ossignore"); err != nil {
 		t.Fatal(err)
 	}
 	if m := pats.Match("whatever"); m.CanSkipDir() {
@@ -1144,7 +1144,7 @@ func TestEmptyPatterns(t *testing.T) {
 
 	for _, tc := range tcs {
 		m := New(testFs)
-		err := m.Parse(strings.NewReader(tc), ".stignore")
+		err := m.Parse(strings.NewReader(tc), ".ossignore")
 		if err == nil {
 			t.Error("Should reject invalid pattern", tc)
 		}
@@ -1163,14 +1163,14 @@ func TestWindowsLineEndings(t *testing.T) {
 	lines := "foo\nbar\nbaz\n"
 
 	m := New(testFs)
-	if err := m.Parse(strings.NewReader(lines), ".stignore"); err != nil {
+	if err := m.Parse(strings.NewReader(lines), ".ossignore"); err != nil {
 		t.Fatal(err)
 	}
-	if err := WriteIgnores(testFs, ".stignore", m.Lines()); err != nil {
+	if err := WriteIgnores(testFs, ".ossignore", m.Lines()); err != nil {
 		t.Fatal(err)
 	}
 
-	fd, err := testFs.Open(".stignore")
+	fd, err := testFs.Open(".ossignore")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -1376,7 +1376,7 @@ var overrideBackslashTests = []escapeTest{
 	{`\a\r\n`, `/a/r/n`, false}, // leading backslash is stripped off
 }
 
-// TestEscapeOverrideBackslash tests when #escape=\ is in the .stignore file.
+// TestEscapeOverrideBackslash tests when #escape=\ is in the .ossignore file.
 func TestEscapeOverrideBackslash(t *testing.T) {
 	tests := make([]escapeTest, 0, len(overrideBackslashTests))
 
@@ -1392,7 +1392,7 @@ func TestEscapeOverrideBackslash(t *testing.T) {
 }
 
 // TestEscapeOverridePipe tests when #escape=| (or another character) is in the
-// .stignore file.
+// .ossignore file.
 func TestEscapeOverridePipe(t *testing.T) {
 	escapeChars := []string{
 		"|",
@@ -1427,7 +1427,7 @@ var escapePrefixes = []string{
 }
 
 // TestEscapeBeforePattern tests when #escape= is found before a pattern in the
-// .stignore file.
+// .ossignore file.
 func TestEscapeBeforePattern(t *testing.T) {
 	tests := make([]escapeTest, 0, len(overrideBackslashTests)*len(escapePrefixes))
 
@@ -1446,7 +1446,7 @@ func TestEscapeBeforePattern(t *testing.T) {
 	testEscape(t, tests, true)
 }
 
-// TestEscapeEmpty tests when #escape= (no char) is in the .stignore file.
+// TestEscapeEmpty tests when #escape= (no char) is in the .ossignore file.
 func TestEscapeEmpty(t *testing.T) {
 	suffixes := []string{"", " ", "\t", "=", "= ", "=\t", "x"}
 
@@ -1485,7 +1485,7 @@ func TestEscapeInvalid(t *testing.T) {
 }
 
 // TestEscapeAfterPattern tests when #escape= is found after a pattern in the
-// .stignore file.
+// .ossignore file.
 func TestEscapeAfterPattern(t *testing.T) {
 	suffixes := []string{
 		"pattern\n",
@@ -1551,7 +1551,7 @@ func testEscape(t *testing.T, tests []escapeTest, noErrors bool) {
 		}
 		pats := New(testFS)
 
-		err := pats.Parse(bytes.NewBufferString(test.pattern), ".stignore")
+		err := pats.Parse(bytes.NewBufferString(test.pattern), ".ossignore")
 		if noErrors {
 			if err != nil {
 				t.Fatalf("%q: err=%v (test %d)", test.pattern, err, i+1)
@@ -1582,17 +1582,17 @@ func TestIgnoreThroughSymlink(t *testing.T) {
 
 	testFS := fs.NewFilesystem(fs.FilesystemTypeBasic, t.TempDir())
 
-	// The real ignore file lives under a different name, and .stignore is a
+	// The real ignore file lives under a different name, and .ossignore is a
 	// symlink pointing at it.
 	if err := fs.WriteFile(testFS, "real-ignores", []byte("bfile\n"), 0o666); err != nil {
 		t.Fatal(err)
 	}
-	if err := testFS.CreateSymlink("real-ignores", ".stignore"); err != nil {
+	if err := testFS.CreateSymlink("real-ignores", ".ossignore"); err != nil {
 		t.Fatal(err)
 	}
 
 	pats := New(testFS)
-	if err := pats.Load(".stignore"); err != nil {
+	if err := pats.Load(".ossignore"); err != nil {
 		t.Fatal(err)
 	}
 

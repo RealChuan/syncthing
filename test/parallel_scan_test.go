@@ -30,8 +30,8 @@ func TestRescanInParallel(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	log.Println("Generating .stignore...")
-	err = os.WriteFile("s1/.stignore", []byte("some ignore data\n"), 0o644)
+	log.Println("Generating .ossignore...")
+	err = os.WriteFile("s1/.ossignore", []byte("some ignore data\n"), 0o644)
 	if err != nil {
 		t.Fatal(err)
 	}

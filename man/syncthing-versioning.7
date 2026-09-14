@@ -50,7 +50,7 @@ not and can not archive the old version.
 .sp
 The applicable configuration options for each versioning strategy are described
 below.  For most of them it’s possible to specify where the versions are stored,
-with the default being the \fB\&.stversions\fP folder inside the shared folder path.
+with the default being the \fB\&.ossversions\fP folder inside the shared folder path.
 If you set a custom version path, please ensure that it’s on the same partition
 or filesystem as the regular folder path, as moving files there may otherwise
 fail.
@@ -58,7 +58,7 @@ fail.
 .sp
 This versioning strategy emulates the common “trash can” approach. When a file
 is deleted or replaced due to a change on a remote device, it is moved to
-the trash can in the \fB\&.stversions\fP folder. If a file with the same name was
+the trash can in the \fB\&.ossversions\fP folder. If a file with the same name was
 already in the trash can it is replaced.
 .sp
 A \fI\%configuration option\fP is
@@ -68,17 +68,17 @@ they have been in the trash can that long.  Setting this to zero prevents any
 files from being removed from the trash can automatically.
 .SH SIMPLE FILE VERSIONING
 .sp
-With “Simple File Versioning” files are moved to the \fB\&.stversions\fP folder when
+With “Simple File Versioning” files are moved to the \fB\&.ossversions\fP folder when
 replaced or deleted on a remote device.  In addition to the
 \fI\%cleanoutDays\fP option, this strategy also takes a
 value in an input titled “Keep Versions” which tells Syncthing how many old
 versions of the file it should \fI\%keep\fP\&.  For
 example, if you set this value to 5, if a file is replaced 5 times on a remote
-device, you will see 5 time\-stamped versions on that file in the \fB\&.stversions\fP
+device, you will see 5 time\-stamped versions on that file in the \fB\&.ossversions\fP
 folder on the other devices sharing the same folder.
 .SH STAGGERED FILE VERSIONING
 .sp
-With “Staggered File Versioning” files are also moved to the \fB\&.stversions\fP
+With “Staggered File Versioning” files are also moved to the \fB\&.ossversions\fP
 folder when replaced or deleted on a remote device (just like “Simple File
 Versioning”), however, versions are automatically deleted if they are older than
 the maximum age or exceed the number of files allowed in an interval.
@@ -102,7 +102,7 @@ Until maximum age, the oldest version in every week is kept.
 .TP
 .B Maximum Age
 The maximum time to keep a version in days. For example, to keep replaced or
-deleted files in the \fB\&.stversions\fP folder for an entire year, use 365. If
+deleted files in the \fB\&.ossversions\fP folder for an entire year, use 365. If
 only for 10 days, use 10.  Corresponds to the
 \fI\%maxAge\fP option.
 \fBNote: Set to 0 to keep versions forever.\fP
@@ -281,7 +281,7 @@ Add\-Type \-AssemblyName Microsoft.VisualBasic
 # a modification and delete the existing file. If if does not, we assume
 # a deletion and recycle the current file. If succeeded, we also include
 # the deleted/recycled file in the Syncthing\(aqs DEBUG output.
-if (Test\-Path \-LiteralPath ((Split\-Path \-Path $args) + \(dq\e~syncthing~\(dq + (Split\-Path \-Path $args \-Leaf) + \(dq.tmp\(dq)) {
+if (Test\-Path \-LiteralPath ((Split\-Path \-Path $args) + \(dq\e~ossdrive~\(dq + (Split\-Path \-Path $args \-Leaf) + \(dq.tmp\(dq)) {
   [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile($args,\(aqOnlyErrorDialogs\(aq,\(aqDeletePermanently\(aq)
   if ($?) {
     Write\-Output (\(dqDeleted \(dq + $args + \(dq.\(dq)
@@ -335,7 +335,7 @@ Selects one of the versioning strategies: \fBtrashcan\fP, \fBsimple\fP,
 .TP
 .B versioning.fsPath
 Overrides the path where old versions of files are stored and defaults to
-\fB\&.stversions\fP if left empty.  An absolute or relative path can be
+\fB\&.ossversions\fP if left empty.  An absolute or relative path can be
 specified.  The latter is interpreted relative to the shared folder path, if
 the \fI\%fsType\fP is configured as \fBbasic\fP\&.  Ignored
 for the \fBexternal\fP versioning strategy.

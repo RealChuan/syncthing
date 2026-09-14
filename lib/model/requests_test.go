@@ -738,7 +738,7 @@ func TestRequestRemoteRenameChanged(t *testing.T) {
 			if err := equalContents(tfs, path, otherData); err != nil {
 				t.Error(`Sync conflict of "b" has unexpected content`)
 			}
-		case path == "." || strings.HasPrefix(path, ".stfolder"):
+		case path == "." || strings.HasPrefix(path, ".ossfolder"):
 		default:
 			t.Error("Found unexpected file", path)
 		}

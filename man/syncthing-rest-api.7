@@ -153,7 +153,7 @@ Returns the current configuration.
       \(dqmaxConflicts\(dq: \-1,
       \(dqdisableSparseFiles\(dq: false,
       \(dqpaused\(dq: false,
-      \(dqmarkerName\(dq: \(dq.stfolder\(dq,
+      \(dqmarkerName\(dq: \(dq.ossfolder\(dq,
       \(dqcopyOwnershipFromParent\(dq: false,
       \(dqmodTimeWindowS\(dq: 0,
       \(dqmaxConcurrentWrites\(dq: 16,
@@ -324,7 +324,7 @@ Returns the current configuration.
       \(dqmaxConflicts\(dq: 10,
       \(dqdisableSparseFiles\(dq: false,
       \(dqpaused\(dq: false,
-      \(dqmarkerName\(dq: \(dq.stfolder\(dq,
+      \(dqmarkerName\(dq: \(dq.ossfolder\(dq,
       \(dqcopyOwnershipFromParent\(dq: false,
       \(dqmodTimeWindowS\(dq: 0,
       \(dqmaxConcurrentWrites\(dq: 16,
@@ -664,7 +664,7 @@ curl \-X POST \-H \(dqX\-API\-Key: abc123\(dq http://localhost:8384/rest/system/
 .UNINDENT
 .UNINDENT
 .sp
-Creates \fB\&.stfolder\fP folders in each sync folder if they do not already exist.
+Creates \fB\&.ossfolder\fP folders in each sync folder if they do not already exist.
 \fBCaution\fP: Ensure that all sync folders which are mountpoints are already
 mounted.  Inconsistent versions may result if the mountpoint is later mounted
 and contains older versions.
@@ -1385,8 +1385,8 @@ macOS (“darwin”) looks as follows:
 .SS GET /rest/db/ignores
 .sp
 Takes one parameter, \fBfolder\fP, and returns the content of the
-\fB\&.stignore\fP as the \fBignore\fP field. A second field, \fBexpanded\fP,
-provides a list of strings which represent globbing patterns described by gobwas/glob (based on standard wildcards) that match the patterns in \fB\&.stignore\fP and all the includes. If appropriate these globs are prepended by the following modifiers: \fB!\fP to negate the glob, \fB(?i)\fP to do case insensitive matching and \fB(?d)\fP to enable removing of ignored files in an otherwise empty directory.
+\fB\&.ossignore\fP as the \fBignore\fP field. A second field, \fBexpanded\fP,
+provides a list of strings which represent globbing patterns described by gobwas/glob (based on standard wildcards) that match the patterns in \fB\&.ossignore\fP and all the includes. If appropriate these globs are prepended by the following modifiers: \fB!\fP to negate the glob, \fB(?i)\fP to do case insensitive matching and \fB(?d)\fP to enable removing of ignored files in an otherwise empty directory.
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -1408,7 +1408,7 @@ provides a list of strings which represent globbing patterns described by gobwas
 Expects a format similar to the output of \fI\%GET /rest/db/ignores\fP call, but only
 containing the \fBignore\fP field (\fBexpanded\fP field should be omitted).
 It takes one parameter, \fBfolder\fP, and either updates the content of
-the \fB\&.stignore\fP echoing it back as a response, or returns an error.
+the \fB\&.ossignore\fP echoing it back as a response, or returns an error.
 .SS GET /rest/db/localchanged
 .sp
 Added in version 0.14.55.

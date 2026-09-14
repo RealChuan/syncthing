@@ -118,7 +118,7 @@ func TestDefaultValues(t *testing.T) {
 					Params:           map[string]string{},
 				},
 				MaxConflicts:        10,
-				MarkerName:          ".stfolder",
+				MarkerName:          ".ossfolder",
 				MaxConcurrentWrites: maxConcurrentWritesDefault,
 				XattrFilter: XattrFilter{
 					Entries:            []XattrFilterEntry{},
@@ -544,7 +544,7 @@ func TestFolderPath(t *testing.T) {
 
 func TestFolderCheckPath(t *testing.T) {
 	tmpFs := fs.NewFilesystem(fs.FilesystemTypeFake, rand.String(16)+"?nostfolder=true")
-	_ = tmpFs.MkdirAll(filepath.Join("dir", ".stfolder"), 0o777)
+	_ = tmpFs.MkdirAll(filepath.Join("dir", ".ossfolder"), 0o777)
 
 	testcases := []struct {
 		path string

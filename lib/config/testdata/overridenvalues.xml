@@ -71,7 +71,7 @@
             <disableSparseFiles>false</disableSparseFiles>
             <disableTempIndexes>false</disableTempIndexes>
             <paused>false</paused>
-            <markerName>.stfolder</markerName>
+            <markerName>.ossfolder</markerName>
             <copyOwnershipFromParent>false</copyOwnershipFromParent>
             <modTimeWindowS>0</modTimeWindowS>
             <maxConcurrentWrites>2</maxConcurrentWrites>

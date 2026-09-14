@@ -223,7 +223,7 @@ func migrateToConfigV24(cfg *Configuration) {
 }
 
 func migrateToConfigV23(cfg *Configuration) {
-	// Upgrade code remains hardcoded for .stfolder despite configurable
+	// Upgrade code remains hardcoded for .ossfolder despite configurable
 	// marker name in later versions.
 
 	for i := range cfg.Folders {
@@ -263,12 +263,12 @@ func migrateToConfigV21(cfg *Configuration) {
 		switch folder.Versioning.Type {
 		case "simple", "trashcan":
 			// Clean out symlinks in the known place
-			cleanSymlinks(folder.Filesystem(), ".stversions")
+			cleanSymlinks(folder.Filesystem(), ".ossversions")
 		case "staggered":
 			versionDir := folder.Versioning.Params["versionsPath"]
 			if versionDir == "" {
 				// default place
-				cleanSymlinks(folder.Filesystem(), ".stversions")
+				cleanSymlinks(folder.Filesystem(), ".ossversions")
 			} else if filepath.IsAbs(versionDir) {
 				// absolute
 				cleanSymlinks(fs.NewFilesystem(fs.FilesystemTypeBasic, versionDir), ".")

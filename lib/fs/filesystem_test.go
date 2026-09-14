@@ -20,22 +20,22 @@ func TestIsInternal(t *testing.T) {
 		file     string
 		internal bool
 	}{
-		{".stfolder", true},
-		{".stignore", true},
-		{".stversions", true},
-		{".stfolder/foo", true},
-		{".stignore/foo", true},
-		{".stversions/foo", true},
+		{".ossfolder", true},
+		{".ossignore", true},
+		{".ossversions", true},
+		{".ossfolder/foo", true},
+		{".ossignore/foo", true},
+		{".ossversions/foo", true},
 
-		{".stfolderfoo", false},
-		{".stignorefoo", false},
-		{".stversionsfoo", false},
-		{"foo.stfolder", false},
-		{"foo.stignore", false},
-		{"foo.stversions", false},
-		{"foo/.stfolder", false},
-		{"foo/.stignore", false},
-		{"foo/.stversions", false},
+		{".ossfolderfoo", false},
+		{".ossignorefoo", false},
+		{".ossversionsfoo", false},
+		{"foo.ossfolder", false},
+		{"foo.ossignore", false},
+		{"foo.ossversions", false},
+		{"foo/.ossfolder", false},
+		{"foo/.ossignore", false},
+		{"foo/.ossversions", false},
 	}
 
 	for _, tc := range cases {

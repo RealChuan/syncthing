@@ -32,7 +32,7 @@ var (
 )
 
 const (
-	DefaultPath = ".stversions"
+	DefaultPath = ".ossversions"
 )
 
 // TagFilename inserts ~tag just before the extension of the filename.

@@ -85,7 +85,7 @@ syncthing-faq \- Frequently Asked Questions
 .IP \(bu 2
 \fI\%How do I serve a folder from a read only filesystem?\fP
 .IP \(bu 2
-\fI\%I really hate the .stfolder directory, can I remove it?\fP
+\fI\%I really hate the .ossfolder directory, can I remove it?\fP
 .IP \(bu 2
 \fI\%Am I able to nest shared folders in Syncthing?\fP
 .IP \(bu 2
@@ -187,8 +187,8 @@ Devices, FIFOs, and other specials (ignored)
 .IP \(bu 2
 Sparse file sparseness (will become sparse, when supported by the OS & filesystem)
 .IP \(bu 2
-Syncthing internal files and folders (e.g. \fB\&.stfolder\fP, \fB\&.stignore\fP,
-\fB\&.stversions\fP, \fI\%temporary files\fP, etc.)
+Syncthing internal files and folders (e.g. \fB\&.ossfolder\fP, \fB\&.ossignore\fP,
+\fB\&.ossversions\fP, \fI\%temporary files\fP, etc.)
 .UNINDENT
 .SS Is synchronization fast?
 .sp
@@ -402,14 +402,14 @@ address you are concerned about with \X'tty: link https://relays.syncthing.net'\
 transmitted via them.
 .SS I am seeing the error message “folder marker missing”. What do I do?
 .sp
-Syncthing uses a specific marker usually called \fB\&.stfolder\fP to determine whether
+Syncthing uses a specific marker usually called \fB\&.ossfolder\fP to determine whether
 a folder is healthy. This is a safety check to ensure that your folder is properly
 readable and present on disk. For example, if you remove a USB drive from your computer
 or unmount a filesystem, then syncthing must know whether you have really deleted \fBall\fP of
-your files. Therefore, syncthing always checks that the \fB\&.stfolder\fP is present.
+your files. Therefore, syncthing always checks that the \fB\&.ossfolder\fP is present.
 .sp
 When this error appears, syncthing assumes that the folder has encountered some type of error
-and will stop syncing it until the \fB\&.stfolder\fP reappears. Once that happens, all changes made
+and will stop syncing it until the \fB\&.ossfolder\fP reappears. Once that happens, all changes made
 to the folder locally will be synced (i.e. missing files will be considered deletions).
 .INDENT 0.0
 .IP \(bu 2
@@ -420,17 +420,17 @@ this folder.
 If you have moved the folder, you must either move it back to its original location, or remove the
 folder from within the syncthing UI and re\-add it at its new location.
 .IP \(bu 2
-If the folder is present on disk, with all of its children files and directories, but the \fB\&.stfolder\fP
+If the folder is present on disk, with all of its children files and directories, but the \fB\&.ossfolder\fP
 is still missing:
 .sp
-It is possible that a file cleaning software has removed the \fB\&.stfolder\fP\&. Some software
-removes empty folders, and the \fB\&.stfolder\fP is often empty. This happens particularly often on Android.
-To remediate, recreate the \fB\&.stfolder\fP and add a dummy file in it, or add an exception to your
+It is possible that a file cleaning software has removed the \fB\&.ossfolder\fP\&. Some software
+removes empty folders, and the \fB\&.ossfolder\fP is often empty. This happens particularly often on Android.
+To remediate, recreate the \fB\&.ossfolder\fP and add a dummy file in it, or add an exception to your
 cleaning software.
 .UNINDENT
 .sp
 If you are still unsure what has happened, you can remove the folder from within the syncthing UI and re\-add it
-at the same location. This causes syncthing to attempt an automatic re\-creation of the \fB\&.stfolder\fP\&. Next,
+at the same location. This causes syncthing to attempt an automatic re\-creation of the \fB\&.ossfolder\fP\&. Next,
 it will also reset the database state of this folder. It will be considered a “new” folder, meaning that its files
 will be merged with files from remote devices.
 .sp
@@ -455,12 +455,12 @@ to change the network profile to “Private”\fP <\fBhttps://support.microsoft.
 .SS How do I serve a folder from a read only filesystem?
 .sp
 Syncthing requires a “folder marker” to indicate that the folder is present
-and healthy. By default this is a directory called \fB\&.stfolder\fP that is
+and healthy. By default this is a directory called \fB\&.ossfolder\fP that is
 created by Syncthing when the folder is added. If this folder can’t be
 created (you are serving files from a CD or something) you can instead set
 the advanced config \fBMarker Name\fP to the name of some file or folder that
 you know will always exist in the folder.
-.SS I really hate the \fB\&.stfolder\fP directory, can I remove it?
+.SS I really hate the \fB\&.ossfolder\fP directory, can I remove it?
 .sp
 See the previous question.
 .SS Am I able to nest shared folders in Syncthing?
@@ -487,7 +487,7 @@ move. Changes made on other devices may be overwritten, or changes made
 locally may be overwritten by those on other devices.
 .sp
 An alternative way is to shut down Syncthing, move the folder on disk (including
-the \fB\&.stfolder\fP marker), edit the path directly in \fBconfig.xml\fP in the
+the \fB\&.ossfolder\fP marker), edit the path directly in \fBconfig.xml\fP in the
 configuration folder (see \fI\%Syncthing Configuration\fP) and then start Syncthing again.
 .SS How do I configure multiple users on a single machine?
 .sp
@@ -537,7 +537,7 @@ devices. You can enable versioning, but we encourage you to use other tools
 to keep your data safe from your (or our) mistakes.
 .SS How can I exclude files with brackets (\fB[]\fP) in the name?
 .sp
-The patterns in .stignore are glob patterns, where brackets are used to
+The patterns in .ossignore are glob patterns, where brackets are used to
 denote character ranges. That is, the pattern \fBq[abc]x\fP will match the
 files \fBqax\fP, \fBqbx\fP and \fBqcx\fP\&.
 .sp

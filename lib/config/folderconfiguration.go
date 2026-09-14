@@ -34,8 +34,8 @@ var (
 )
 
 const (
-	DefaultMarkerName          = ".stfolder"
-	EncryptionTokenName        = "syncthing-encryption_password_token" //nolint: gosec
+	DefaultMarkerName          = ".ossfolder"
+	EncryptionTokenName        = "ossdrive-encryption_password_token" //nolint: gosec
 	maxConcurrentWritesDefault = 16
 	maxConcurrentWritesLimit   = 256
 )
@@ -198,7 +198,7 @@ func (f *FolderConfiguration) RemoveMarker() error {
 
 func (f *FolderConfiguration) markerFilename() string {
 	h := sha256.Sum256([]byte(f.ID))
-	return fmt.Sprintf("syncthing-folder-%x.txt", h[:3])
+	return fmt.Sprintf("ossdrive-folder-%x.txt", h[:3])
 }
 
 func (f *FolderConfiguration) markerContents() []byte {

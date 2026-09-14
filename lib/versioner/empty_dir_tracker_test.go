@@ -13,9 +13,9 @@ import (
 	"github.com/d4l3k/messagediff"
 )
 
-// TestEmptyDirs models the following .stversions structure:
+// TestEmptyDirs models the following .ossversions structure:
 //
-//	.stversions/
+//	.ossversions/
 //	├── keep1
 //	│   └── file1
 //	├── keep2

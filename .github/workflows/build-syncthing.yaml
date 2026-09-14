@@ -42,7 +42,6 @@ env:
 # that lead up to code being packaged and signed.
 
 jobs:
-
   #
   # Source
   #
@@ -398,14 +397,15 @@ jobs:
           name: packages-illumos
           path: "*.tar.gz"
   #
-  # macOS. The entire build runs in the release environment because code
-  # signing is part of the build process, so it is limited to release
-  # branches on the Syncthing repo.
+  # macOS. Code signing happens as part of the build, but only when
+  # signing credentials (CODESIGN_IDENTITY secret) are available; without
+  # them the build produces unsigned packages. Notarization runs only in
+  # the Syncthing repo.
   #
 
   package-macos:
     name: Package for macOS
-    if: github.repository_owner == 'syncthing' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && (github.ref == 'refs/heads/release-nightly' || startsWith(github.ref, 'refs/tags/v'))
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     runs-on: macos-latest
     needs:
       - facts
@@ -701,8 +701,7 @@ jobs:
       - name: Sign shasum files
         uses: docker://ghcr.io/kastelo/ezapt:latest
         with:
-          args:
-            sign
+          args: sign
             packages/sha1sum.txt packages/sha256sum.txt
         env:
           EZAPT_KEYRING_BASE64: ${{ secrets.APT_GPG_KEYRING_BASE64 }}
@@ -710,8 +709,7 @@ jobs:
       - name: Sign source
         uses: docker://ghcr.io/kastelo/ezapt:latest
         with:
-          args:
-            sign --detach --ascii
+          args: sign --detach --ascii
             packages/syncthing-source-${{ env.VERSION }}.tar.gz
         env:
           EZAPT_KEYRING_BASE64: ${{ secrets.APT_GPG_KEYRING_BASE64 }}
@@ -748,7 +746,7 @@ jobs:
 
       - uses: ruby/setup-ruby@eab2afb99481ca09a4e91171a8e0aee0e89bfedd # v1
         with:
-          ruby-version: '3.0'
+          ruby-version: "3.0"
 
       - name: Install fpm
         run: |
@@ -984,8 +982,7 @@ jobs:
       - name: Update archive
         uses: docker://ghcr.io/kastelo/ezapt:latest
         with:
-          args:
-            publish --root apt
+          args: publish --root apt
         env:
           EZAPT_KEYRING_BASE64: ${{ secrets.APT_GPG_KEYRING_BASE64 }}
 
@@ -1163,8 +1160,7 @@ jobs:
       - name: Sync images
         uses: docker://docker.io/regclient/regsync:latest
         with:
-          args:
-            -c ./.github/regsync.yml
+          args: -c ./.github/regsync.yml
             once
 
   #
@@ -1202,7 +1198,7 @@ jobs:
       - uses: actions/checkout@v5
       - uses: actions/setup-go@v6
         with:
-          go-version: 'stable'
+          go-version: "stable"
 
       - name: ensure asset generation
         run: go run build.go assets
@@ -1223,7 +1219,7 @@ jobs:
       - uses: actions/checkout@v5
       - uses: actions/setup-go@v6
         with:
-          go-version: 'stable'
+          go-version: "stable"
 
       - run: |
           go run build.go assets

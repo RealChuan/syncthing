@@ -19,7 +19,6 @@ import (
 	"github.com/syncthing/syncthing/internal/slogutil"
 	"github.com/syncthing/syncthing/lib/build"
 	"github.com/syncthing/syncthing/lib/config"
-	"github.com/syncthing/syncthing/lib/dialer"
 	"github.com/syncthing/syncthing/lib/events"
 	"github.com/syncthing/syncthing/lib/svcutil"
 	"github.com/syncthing/syncthing/lib/tlsutil"
@@ -198,14 +197,6 @@ func sendFailureReports(ctx context.Context, reports []contract.FailureReport, u
 		panic(err)
 	}
 
-	client := &http.Client{
-		Transport: &http.Transport{
-			DialContext:     dialer.DialContext,
-			Proxy:           http.ProxyFromEnvironment,
-			TLSClientConfig: tlsutil.SecureDefaultWithTLS12(),
-		},
-	}
-
 	reqCtx, reqCancel := context.WithTimeout(ctx, sendTimeout)
 	defer reqCancel()
 	req, err := http.NewRequestWithContext(reqCtx, http.MethodPost, url, &b)
@@ -216,7 +207,7 @@ func sendFailureReports(ctx context.Context, reports []contract.FailureReport, u
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("User-Agent", build.UserAgent())
 
-	resp, err := client.Do(req)
+	resp, err := tlsutil.ShortLivedHTTPClient.Do(req)
 	if err != nil {
 		slog.WarnContext(ctx, "Failed to send failure report", slogutil.Error(err))
 		return

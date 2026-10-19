@@ -21,6 +21,7 @@ import (
 
 	"github.com/syncthing/syncthing/internal/slogutil"
 	"github.com/syncthing/syncthing/lib/build"
+	"github.com/syncthing/syncthing/lib/tlsutil"
 )
 
 const (
@@ -89,7 +90,7 @@ func uploadPanicLog(ctx context.Context, urlBase, file string) error {
 	defer headCancel()
 	headReq = headReq.WithContext(headCtx)
 
-	resp, err := http.DefaultClient.Do(headReq)
+	resp, err := tlsutil.ShortLivedHTTPClient.Do(headReq)
 	if err != nil {
 		return err
 	}
@@ -110,7 +111,7 @@ func uploadPanicLog(ctx context.Context, urlBase, file string) error {
 	defer putCancel()
 	putReq = putReq.WithContext(putCtx)
 
-	resp, err = http.DefaultClient.Do(putReq)
+	resp, err = tlsutil.ShortLivedHTTPClient.Do(putReq)
 	if err != nil {
 		return err
 	}

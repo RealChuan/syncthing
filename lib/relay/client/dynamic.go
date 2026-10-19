@@ -18,6 +18,7 @@ import (
 	"github.com/syncthing/syncthing/lib/osutil"
 	"github.com/syncthing/syncthing/lib/rand"
 	"github.com/syncthing/syncthing/lib/relay/protocol"
+	"github.com/syncthing/syncthing/lib/tlsutil"
 )
 
 type dynamicClient struct {
@@ -55,7 +56,7 @@ func (c *dynamicClient) serve(ctx context.Context) error {
 		return err
 	}
 	req.Header.Set("User-Agent", build.UserAgent())
-	data, err := http.DefaultClient.Do(req)
+	data, err := tlsutil.ShortLivedHTTPClient.Do(req)
 	if err != nil {
 		l.Debugln(c, "failed to lookup dynamic relays", err)
 		return err
